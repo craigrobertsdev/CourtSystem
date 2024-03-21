@@ -1,0 +1,31 @@
+.container {
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+}
+
+.defendant-list { 
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin: 1rem;
+    border-right: 3px solid #ccc;
+}
+
+.defendant-name {
+    font-size: 1rem;
+    margin: 2px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.defendant-name:hover:not(.selected) {
+    background-color: #ddd;
+}
+
+.selected {
+    background-color: blue;
+    color: white;
+}

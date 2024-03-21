@@ -1,0 +1,59 @@
+@page "/"
+@using CourtSystem.Components
+@using CourtSystem.Models
+@using CourtSystem.Data
+
+@inject IJSRuntime JSRuntime
+
+<div class="container">
+    <div class="defendant-list">
+        @foreach (var defendant in Defendants) {
+            <div class="defendant-name @GetButtonClass(defendant)" @onclick="() => ActivateDefendant(defendant)">
+                @defendant.FirstName @defendant.LastName
+            </div>
+        }
+    </div>
+    <div class="tab-control">
+        <TabControl>
+            <TabPage Title="CFEL">
+                <h1>This will be the CFEL page</h1>
+                <p>@ActiveDefendant?.CaseFiles.First().ToString()</p>
+            </TabPage>
+            <TabPage Title="Information">
+                <h1>This will be the Information page</h1>
+            </TabPage>
+            <TabPage Title="Facts of Charge">
+                <h1>This will be the Facts of Charge page</h1>
+            </TabPage>
+            <TabPage Title="Correspondence">
+                <h1>This will be the Correspondence page</h1>
+            </TabPage>
+            <TabPage Title="Evidence">
+                <h1>This will be the Evidence page</h1>
+            </TabPage>
+        </TabControl>
+    </div>
+</div>
+
+@code {
+    private List<Defendant> Defendants { get; set; } = new();
+    public Defendant? ActiveDefendant { get; set; }
+
+    protected override void OnInitialized() {
+
+        var output = CourtListParser.ReadCaseFiles("SeedData.json");
+        JSRuntime.InvokeVoidAsync("console.log", output);
+    }
+
+    private void ActivateDefendant(Defendant defendant) {
+        ActiveDefendant = defendant;
+    }
+
+    private string GetButtonClass(Defendant defendant) {
+        if (ActiveDefendant?.Id == defendant.Id) {
+            return "selected";
+        }
+
+        return "";
+    }
+}
