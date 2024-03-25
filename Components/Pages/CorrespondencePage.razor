@@ -1,15 +1,15 @@
 @using CourtSystem.Models
 <div class="flex">
-    <div class="border-r border-r-black">
-        @if (CaseFileDocuments.Count == 0) {
-            <p>No correspondence to display</p>
-        }
-        else {
+    @if (CaseFileDocuments.Count == 0) {
+        <p>No correspondence to display</p>
+    }
+    else {
+        <div class="">
             @foreach (var document in CaseFileDocuments) {
                 <div @onclick=@(() => SelectDocument(document.Title))>@document.Title</div>
             }
-        }
-    </div>
+        </div>
+    }
     <div>
         <embed src="@SelectedDocument?.FilePath" />
     </div>

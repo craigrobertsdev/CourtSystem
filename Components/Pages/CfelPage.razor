@@ -1,12 +1,12 @@
 @using CourtSystem.Models
 <div>
-    @if (CfelEntries.Count == 0) {
-        <p>Error loading CFEL entries</p>
+    @if (Parent?.ActiveDefendant?.ActiveCaseFile?.CfelEntries is null) {
+        <p>No CFEL entries to display</p>
     }
     else {
-        @foreach (var entry in CfelEntries) {
-            <div class="border-b border-b-black">
-                <p>Entered on @entry.EntryDate by @entry.EnteredBy</p>
+        @foreach (var entry in Parent.ActiveDefendant.ActiveCaseFile.CfelEntries!) {
+            <div class="border-b border-b-black pb-4 mb-4">
+                <p class="py-1 text-sm text-gray-700">Entered on @entry.EntryDate by @entry.EnteredBy</p>
                 <p>
                     @entry.EntryText
                 </p>

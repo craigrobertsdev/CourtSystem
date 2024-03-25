@@ -6,15 +6,26 @@
 
 @inject IJSRuntime JSRuntime
 
-<div class="container">
-    <div class="defendant-list">
+<div class="h-full grid grid-cols-[0.2fr_1fr] grid-rows-[auto_1fr] py-2">
+    <div class="row-span-2 flex flex-col px-2 mx-2 border-r border-r-3 border-r-slate-500 overflow-y-auto">
         @foreach (var defendant in CourtList.Defendants) {
-            <div class="defendant-name @GetButtonClass(defendant)" @onclick="() => ActivateDefendant(defendant)">
+            <div class="text-lg p-1 border border-slate-500 bg-slate-200 cursor-pointer @IsSelected(defendant)" @onclick="() => ActivateDefendant(defendant)">
                 @defendant.FirstName @defendant.LastName
             </div>
         }
     </div>
-    <div class="tab-control">
+    @if (ActiveDefendant is null)
+    {
+        <div class="pb-2">
+        </div>
+    }
+    else
+    {
+        <div class="pb-2">
+            <RadzenSelectBar Data="@ActiveDefendant!.CaseFiles" @bind-Value="@ActiveDefendant!.ActiveCaseFile" TValue="CaseFile" TextProperty="CaseFileNumber" ValueProperty="ActiveCaseFile" />
+    </div>
+    }
+    <div class="h-full">
         <CascadingValue Value="this">
             <TabControl>
                 <TabPage Title="CFEL">
@@ -58,6 +69,9 @@
         if (output is not null) {
             CourtList = output;
             ActiveDefendant = CourtList.Defendants.FirstOrDefault();
+            if (ActiveDefendant is not null) {
+                ActiveDefendant.ActiveCaseFile = ActiveDefendant?.CaseFiles.FirstOrDefault();
+            }
         }
         else {
             _error = "Error reading file";
@@ -67,13 +81,16 @@
 
     private void ActivateDefendant(Defendant defendant) {
         ActiveDefendant = defendant;
+        if (ActiveDefendant.ActiveCaseFile is null) {
+            ActiveDefendant.ActiveCaseFile = ActiveDefendant.CaseFiles.First();
+        }
     }
 
-    private string GetButtonClass(Defendant defendant) {
+    private string IsSelected(Defendant defendant) {
         if (ActiveDefendant?.Id == defendant.Id) {
-            return "selected";
+            return "!bg-sky-700";
         }
 
-        return "";
+        return "hover:bg-gray-500";
     }
 }

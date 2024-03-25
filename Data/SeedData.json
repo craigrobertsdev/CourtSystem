@@ -111,21 +111,6 @@
           ],
           "cfelEntries": [
             {
-              "entryText": "Explored a new hiking trail in the mountains today. Breathtaking views!",
-              "enteredBy": "Adventurer123",
-              "entryDate": "2024-02-15T10:00:00"
-            },
-            {
-              "entryText": "Completed a challenging coding project. Celebrating the success!",
-              "enteredBy": "CoderMaster",
-              "entryDate": "2024-02-20T15:30:00"
-            },
-            {
-              "entryText": "Attended a fascinating tech conference and learned about the latest innovations.",
-              "enteredBy": "TechEnthusiast",
-              "entryDate": "2024-02-25T14:45:00"
-            },
-            {
               "entryText": "Cooked a delicious homemade meal for the family. Everyone loved it!",
               "enteredBy": "ChefAtHome",
               "entryDate": "2024-03-02T19:00:00"
@@ -136,7 +121,7 @@
               "entryDate": "2024-03-10T21:15:00"
             }
           ],
-          "factsOfCharge": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "factsOfCharge": "Once upon a time, in a quaint village nestled amidst rolling hills, there lived a young girl named Lily. She had always been curious and adventurous, often exploring the forests that surrounded her home.\nOne sunny afternoon, while wandering through the woods, Lily stumbled upon an old, mysterious key half-buried beneath a moss-covered stone. Intrigued, she picked it up, feeling a strange pull towards it.\nAs dusk descended, Lily returned home, clutching the key tightly in her hand. That night, she dreamt of hidden doors and secret passages, whispering of untold adventures.\nThe following morning, fueled by curiosity and excitement, Lily embarked on a quest to unravel the mystery of the key. Through dense forests and over babbling brooks, she journeyed, following an unseen path guided by intuition alone.\nAt last, she reached a forgotten castle hidden deep within the woods. With trembling hands, Lily inserted the key into a weathered lock, and with a creaking groan, the door swung open, revealing a world of wonders waiting to be discovered.\nAnd so, with courage in her heart and the key in her hand, Lily stepped into the unknown, ready to embrace whatever adventures lay ahead.",
           "charges": [
             {
               "name": "assault",
