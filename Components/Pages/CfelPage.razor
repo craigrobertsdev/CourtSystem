@@ -1,0 +1,30 @@
+@using CourtSystem.Models
+<div>
+    @if (CfelEntries.Count == 0) {
+        <p>Error loading CFEL entries</p>
+    }
+    else {
+        @foreach (var entry in CfelEntries) {
+            <div class="border-b border-b-black">
+                <p>Entered on @entry.EntryDate by @entry.EnteredBy</p>
+                <p>
+                    @entry.EntryText
+                </p>
+
+            </div>
+
+        }
+    }
+</div>
+
+@code {
+    [CascadingParameter] public Home Parent { get; set; } = default!;
+    public List<CaseFileEnquiryLog> CfelEntries = [];
+
+    protected override void OnInitialized() {
+        if (Parent?.ActiveDefendant?.ActiveCaseFile?.CfelEntries is var entries && entries is not null) {
+            CfelEntries = entries;
+        }
+    }
+
+}

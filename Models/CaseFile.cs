@@ -5,5 +5,8 @@ public class CaseFile {
     public List<HearingEntry> PreviousHearings { get; set; } = [];
     public List<CaseFileEnquiryLog> CfelEntries { get; set; } = [];
     public string FactsOfCharge { get; set; } = string.Empty;
+    public Information Information { get; set; } = default!;
     public List<Charge> Charges { get; set; } = [];
+    public List<CaseFileDocument> CaseFileDocuments { get; set; } = [];
+    public List<OccurrenceDocument> OccurrenceDocuments { get; set; } = [];
 }

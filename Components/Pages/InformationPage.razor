@@ -1,0 +1,12 @@
+<div>
+    @if (Parent.ActiveDefendant?.ActiveCaseFile?.Information is not null) {
+        <p>@Parent.ActiveDefendant.ActiveCaseFile.Information</p>
+    }
+    else {
+        <p>Error loading information</p>
+    }
+</div>
+
+@code {
+    [CascadingParameter] public Home Parent { get; set; } = default!;
+}

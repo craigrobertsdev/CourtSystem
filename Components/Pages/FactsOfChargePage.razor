@@ -1,0 +1,12 @@
+<p>
+    @if (Parent.ActiveDefendant?.ActiveCaseFile?.FactsOfCharge is not null) {
+        @Parent.ActiveDefendant.ActiveCaseFile.FactsOfCharge
+    }
+    else {
+        <p>Error loading facts of charge</p>
+    }
+</p>
+
+@code {
+    [CascadingParameter] public Home Parent { get; set; } = default!;
+}

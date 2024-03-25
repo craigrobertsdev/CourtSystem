@@ -14,8 +14,6 @@ public static class CourtListParser {
         using var reader = new StreamReader(filePath);
         var json = reader.ReadToEnd();
         var courtList = JsonSerializer.Deserialize<CourtList>(json, options);
-
-        Console.WriteLine($"Read {courtList?.Defendants.Count} case files from {filePath}");
         return courtList;
     }
 }

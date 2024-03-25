@@ -1,5 +1,6 @@
 @page "/"
 @using CourtSystem.Components
+@using CourtSystem.Components.Pages
 @using CourtSystem.Models
 @using CourtSystem.Data
 
@@ -7,42 +8,61 @@
 
 <div class="container">
     <div class="defendant-list">
-        @foreach (var defendant in Defendants) {
+        @foreach (var defendant in CourtList.Defendants) {
             <div class="defendant-name @GetButtonClass(defendant)" @onclick="() => ActivateDefendant(defendant)">
                 @defendant.FirstName @defendant.LastName
             </div>
         }
     </div>
     <div class="tab-control">
-        <TabControl>
-            <TabPage Title="CFEL">
-                <h1>This will be the CFEL page</h1>
-                <p>@ActiveDefendant?.CaseFiles.First().ToString()</p>
-            </TabPage>
-            <TabPage Title="Information">
-                <h1>This will be the Information page</h1>
-            </TabPage>
-            <TabPage Title="Facts of Charge">
-                <h1>This will be the Facts of Charge page</h1>
-            </TabPage>
-            <TabPage Title="Correspondence">
-                <h1>This will be the Correspondence page</h1>
-            </TabPage>
-            <TabPage Title="Evidence">
-                <h1>This will be the Evidence page</h1>
-            </TabPage>
-        </TabControl>
+        <CascadingValue Value="this">
+            <TabControl>
+                <TabPage Title="CFEL">
+                    <CfelPage />
+                </TabPage>
+                <TabPage Title="Information">
+                    <InformationPage />
+                </TabPage>
+                <TabPage Title="Facts of Charge">
+                    <FactsOfChargePage />
+                </TabPage>
+                <TabPage Title="Correspondence">
+                    <CorrespondencePage />
+                </TabPage>
+                <TabPage Title="Evidence">
+                    <EvidencePage />
+                </TabPage>
+                <TabPage Title="Follow-Ups">
+                    <FollowUpsPage />
+                </TabPage>
+                <TabPage Title="Notes">
+                    <NotesPage />
+                </TabPage>
+            </TabControl>
+        </CascadingValue>
     </div>
+
+    @if (_error is not null) {
+        <p>@_error</p>
+    }
 </div>
 
 @code {
-    private List<Defendant> Defendants { get; set; } = new();
+    private CourtList CourtList { get; set; } = default!;
     public Defendant? ActiveDefendant { get; set; }
+    private string? _error { get; set; }
 
     protected override void OnInitialized() {
 
         var output = CourtListParser.ReadCaseFiles("SeedData.json");
-        JSRuntime.InvokeVoidAsync("console.log", output);
+        if (output is not null) {
+            CourtList = output;
+            ActiveDefendant = CourtList.Defendants.FirstOrDefault();
+        }
+        else {
+            _error = "Error reading file";
+        }
+
     }
 
     private void ActivateDefendant(Defendant defendant) {

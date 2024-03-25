@@ -1,0 +1,33 @@
+@using CourtSystem.Models
+<div class="flex">
+    <div class="border-r border-r-black">
+        @if (CaseFileDocuments.Count == 0) {
+            <p>No correspondence to display</p>
+        }
+        else {
+            @foreach (var document in CaseFileDocuments) {
+                <div @onclick=@(() => SelectDocument(document.Title))>@document.Title</div>
+            }
+        }
+    </div>
+    <div>
+        <embed src="@SelectedDocument?.FilePath" />
+    </div>
+
+</div>
+
+@code {
+    [CascadingParameter] public Home Parent { get; set; } = default!;
+    public CaseFileDocument? SelectedDocument { get; set; }
+    public List<CaseFileDocument> CaseFileDocuments = [];
+
+    protected override void OnInitialized() {
+        if (Parent?.ActiveDefendant?.ActiveCaseFile?.CaseFileDocuments is var documents && documents is not null) {
+            CaseFileDocuments = documents;
+        }
+    }
+
+    private void SelectDocument(string title) {
+        SelectedDocument = Parent!.ActiveDefendant!.ActiveCaseFile!.CaseFileDocuments.FirstOrDefault(d => d.Title == title);
+    }
+}
