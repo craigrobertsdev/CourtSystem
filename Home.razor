@@ -14,16 +14,15 @@
             </div>
         }
     </div>
-    @if (ActiveDefendant is null)
-    {
+    @if (ActiveDefendant is null) {
         <div class="pb-2">
         </div>
     }
-    else
-    {
-        <div class="pb-2">
-            <RadzenSelectBar Data="@ActiveDefendant!.CaseFiles" @bind-Value="@ActiveDefendant!.ActiveCaseFile" TValue="CaseFile" TextProperty="CaseFileNumber" ValueProperty="ActiveCaseFile" />
-    </div>
+    else {
+        <div class="pb-2 pr-4 w-full flex justify-between">
+            <RadzenSelectBar Style="font-weight: 400" Data="@ActiveDefendant!.CaseFiles" @bind-Value="@ActiveDefendant!.ActiveCaseFile" TValue="CaseFile" TextProperty="CaseFileNumber" ValueProperty="ActiveCaseFile" />
+            <RadzenButton Text="Save" Click="SaveCourtList" />
+        </div>
     }
     <div class="h-full">
         <CascadingValue Value="this">
@@ -93,5 +92,9 @@
         }
 
         return "hover:bg-gray-500";
+    }
+
+    private void SaveCourtList() {
+        Console.WriteLine("Saving CourtList");
     }
 }
