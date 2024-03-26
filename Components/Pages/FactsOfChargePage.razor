@@ -1,4 +1,4 @@
-<div class="py-3">
+<div>
     @if (Parent.ActiveDefendant?.ActiveCaseFile?.FactsOfCharge is not null) {
         @foreach (var paragraph in Parent.ActiveDefendant.ActiveCaseFile.FactsOfCharge.Split("\n")) {
             <p class="max-w-[120ch]">@paragraph</p>
