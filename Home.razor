@@ -7,7 +7,7 @@
 @inject IJSRuntime JSRuntime
 
 <div class="h-full grid grid-cols-[0.1fr_1fr] grid-rows-[auto_1fr] py-2">
-    <div class="row-span-2 flex flex-col px-2 mx-2 border-r border-r-3 border-r-slate-500 overflow-y-auto">
+    <div class="row-span-2 flex flex-col pr-2 mx-2 border-r border-r-3 border-r-slate-500 overflow-y-auto">
         @foreach (var defendant in CourtList.Defendants) {
             <div class="text-sm lg:text-lg p-1 max-h-[6rem] overflow-hidden border border-slate-500 bg-slate-200 cursor-pointer @IsSelected(defendant)" @onclick="() => ActivateDefendant(defendant)">
                 @defendant.FirstName @defendant.LastName
@@ -20,7 +20,7 @@
     }
     else {
         <div class="pb-2 pr-4 w-full flex justify-between">
-            <RadzenSelectBar Style="font-weight: 400" Data="@ActiveDefendant!.CaseFiles" @bind-Value="@ActiveDefendant!.ActiveCaseFile" TValue="CaseFile" TextProperty="CaseFileNumber" ValueProperty="ActiveCaseFile" />
+            <RadzenSelectBar Data="@ActiveDefendant!.CaseFiles" @bind-Value="@ActiveDefendant!.ActiveCaseFile" TValue="CaseFile" TextProperty="CaseFileNumber" ValueProperty="ActiveCaseFile" />
             <RadzenButton Text="Save" Click="SaveCourtList" />
         </div>
     }
@@ -41,6 +41,9 @@
                 </TabPage>
                 <TabPage Title="Evidence">
                     <EvidencePage />
+                </TabPage>
+                <TabPage Title="Schedule">
+                    <SchedulePage />
                 </TabPage>
                 <TabPage Title="Follow-Ups">
                     <FollowUpsPage />
@@ -95,6 +98,6 @@
     }
 
     private void SaveCourtList() {
-        Console.WriteLine("Saving CourtList");
+
     }
 }
