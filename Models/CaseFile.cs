@@ -9,4 +9,15 @@ public class CaseFile {
     public List<Charge> Charges { get; set; } = [];
     public List<CaseFileDocument> CaseFileDocuments { get; set; } = [];
     public List<OccurrenceDocument> OccurrenceDocuments { get; set; } = [];
+
+    public void GenerateInformationFromCharges() {
+        List<InformationEntry> charges = [];
+        foreach (var charge in Charges) {
+            charges.Add(new InformationEntry(charge.Sequence, charge.ChargeWording));
+        }
+
+        Information = new Information {
+            Charges = charges
+        };
+    }
 }

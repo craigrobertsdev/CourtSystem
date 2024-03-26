@@ -75,12 +75,14 @@
           "factsOfCharge": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
           "charges": [
             {
+              "sequence": 1,
               "name": "assault",
               "date": "2023-12-15T10:00:00",
               "victimName": "Jane Doe",
               "chargeWording": "On the 15th day of December 2023 in the said State, committed assault against Jane Doe."
             },
             {
+              "sequence": 2,
               "name": "theft",
               "date": "2023-12-15T10:00:00",
               "victimName": "Fred Smith",
@@ -92,8 +94,8 @@
       ]
     },
     {
-      "firstName": "Jane",
-      "lastName": "Doe",
+      "firstName": "Really Really",
+      "lastName": "Long Name That Will Overflow For Testing Purposes",
       "caseFiles": [
         {
           "caseFileNumber": "CO2300012346",
@@ -124,10 +126,18 @@
           "factsOfCharge": "Once upon a time, in a quaint village nestled amidst rolling hills, there lived a young girl named Lily. She had always been curious and adventurous, often exploring the forests that surrounded her home.\nOne sunny afternoon, while wandering through the woods, Lily stumbled upon an old, mysterious key half-buried beneath a moss-covered stone. Intrigued, she picked it up, feeling a strange pull towards it.\nAs dusk descended, Lily returned home, clutching the key tightly in her hand. That night, she dreamt of hidden doors and secret passages, whispering of untold adventures.\nThe following morning, fueled by curiosity and excitement, Lily embarked on a quest to unravel the mystery of the key. Through dense forests and over babbling brooks, she journeyed, following an unseen path guided by intuition alone.\nAt last, she reached a forgotten castle hidden deep within the woods. With trembling hands, Lily inserted the key into a weathered lock, and with a creaking groan, the door swung open, revealing a world of wonders waiting to be discovered.\nAnd so, with courage in her heart and the key in her hand, Lily stepped into the unknown, ready to embrace whatever adventures lay ahead.",
           "charges": [
             {
+              "sequence": 1,
               "name": "assault",
               "date": "2023-12-15T10:00:00",
               "victimName": "Paul Brown",
-              "chargeWording": "On the 15th day of December 2023 in the said State, committed assault against Paul Brown."
+              "chargeWording": "On the 15th day of December 2023 in the said State, committed assault against Paul Brown.\nSection 20(3) of the Criminal Law Consolidation Act 1935.\nThis is a Summary Offence."
+            },
+            {
+              "sequence": 2,
+              "name": "theft",
+              "date": "2023-12-15T10:00:00",
+              "victimName": "Paul Brown",
+              "chargeWording": "On the 15th day of December 2023 in the said State, took property namely a screwdriver of a value less than $2500, dishonestly and without the consent of Fred Smith, the owner of the property, or intending to make a serious encroachment on the owner's proprietary rights.\nSection 134 of the Criminal Law Consolidation Act 1935.\nThis is a Summary Offence."
             }
           ]
         },
@@ -175,6 +185,7 @@
           "factsOfCharge": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
           "charges": [
             {
+              "sequence": 1,
               "name": "assault",
               "date": "2023-12-15T10:00:00",
               "victimName": "Paul Brown",
