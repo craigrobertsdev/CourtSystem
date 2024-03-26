@@ -7,11 +7,35 @@
         xmlns:local="clr-namespace:CourtSystem"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="New Court List" x:Name="newCourtList" Click="HandleNewCourtListClick" />
+            <MenuItem Header="Open Previous Court List" x:Name="prevCourtList"  Click="HandleOpenPreviousCourtListClick" />
+        </Menu>
+        <Popup x:Name="popup" Placement="Center">
+            <Grid Height="500" Width="500">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">Enter all case file numbers for your court list</Label>
+                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Height="450" BorderBrush="Black" BorderThickness="2" Background="AliceBlue">
+                    <TextBox x:Name="txtBox" VerticalAlignment="Center" Height="450" AcceptsReturn="True" />
+                </Border>
+                <Button Grid.Row="2" Grid.Column="0" x:Name="save_btn" Click="save_btn_Click">Save</Button>
+                <Button Grid.Row="2" Grid.Column="1"  x:Name="close_btn" Click="close_btn_Click">Cancel</Button>
+            </Grid>
+        </Popup>
+        <TextBlock Name="output_box" />
         <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{DynamicResource services}">
             <blazor:BlazorWebView.RootComponents>
                 <blazor:RootComponent Selector="#app" ComponentType="{x:Type local:Home}" />
             </blazor:BlazorWebView.RootComponents>
         </blazor:BlazorWebView>
-    </Grid>
+    </DockPanel>
 </Window>

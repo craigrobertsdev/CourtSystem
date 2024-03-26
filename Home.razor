@@ -26,32 +26,34 @@
     }
     <div class="h-full">
         <CascadingValue Value="this">
-            <TabControl>
-                <TabPage Title="CFEL">
-                    <CfelPage />
-                </TabPage>
-                <TabPage Title="Information">
-                    <InformationPage />
-                </TabPage>
-                <TabPage Title="Facts of Charge">
-                    <FactsOfChargePage />
-                </TabPage>
-                <TabPage Title="Correspondence">
-                    <CorrespondencePage />
-                </TabPage>
-                <TabPage Title="Evidence">
-                    <EvidencePage />
-                </TabPage>
-                <TabPage Title="Schedule">
-                    <SchedulePage />
-                </TabPage>
-                <TabPage Title="Follow-Ups">
-                    <FollowUpsPage />
-                </TabPage>
-                <TabPage Title="Notes">
-                    <NotesPage />
-                </TabPage>
-            </TabControl>
+            <CascadingValue Value="_context">
+                <TabControl>
+                    <TabPage Title="CFEL">
+                        <CfelPage />
+                    </TabPage>
+                    <TabPage Title="Information">
+                        <InformationPage />
+                    </TabPage>
+                    <TabPage Title="Facts of Charge">
+                        <FactsOfChargePage />
+                    </TabPage>
+                    <TabPage Title="Correspondence">
+                        <CorrespondencePage />
+                    </TabPage>
+                    <TabPage Title="Evidence">
+                        <EvidencePage />
+                    </TabPage>
+                    <TabPage Title="Schedule">
+                        <SchedulePage />
+                    </TabPage>
+                    <TabPage Title="Follow-Ups">
+                        <FollowUpsPage />
+                    </TabPage>
+                    <TabPage Title="Notes">
+                        <NotesPage />
+                    </TabPage>
+                </TabControl>
+            </CascadingValue>
         </CascadingValue>
     </div>
 
@@ -60,44 +62,3 @@
     }
 </div>
 
-@code {
-    private CourtList CourtList { get; set; } = default!;
-    public Defendant? ActiveDefendant { get; set; }
-    private string? _error { get; set; }
-
-    protected override void OnInitialized() {
-
-        var output = CourtListParser.ReadCaseFiles("SeedData.json");
-        if (output is not null) {
-            CourtList = output;
-            CourtList.GenerateInformations();
-            ActiveDefendant = CourtList.Defendants.FirstOrDefault();
-            if (ActiveDefendant is not null) {
-                ActiveDefendant.ActiveCaseFile = ActiveDefendant?.CaseFiles.FirstOrDefault();
-            }
-        }
-        else {
-            _error = "Error reading file";
-        }
-
-    }
-
-    private void ActivateDefendant(Defendant defendant) {
-        ActiveDefendant = defendant;
-        if (ActiveDefendant.ActiveCaseFile is null) {
-            ActiveDefendant.ActiveCaseFile = ActiveDefendant.CaseFiles.First();
-        }
-    }
-
-    private string IsSelected(Defendant defendant) {
-        if (ActiveDefendant?.Id == defendant.Id) {
-            return "!bg-sky-700";
-        }
-
-        return "hover:bg-gray-500";
-    }
-
-    private void SaveCourtList() {
-
-    }
-}
