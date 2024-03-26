@@ -1,2 +1,5 @@
 Work out a way to add the number on the court list against each defendant's name to assist prosecutors in finding the correct defendant in court.
 Add the court file number if possible.
+
+Fix the way that the correspondence page works so that when the ActiveDefendant changes, the first email for them is displayed,
+rather than whatever was being displayed last.

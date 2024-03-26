@@ -20,6 +20,16 @@
               "notes": ""
             }
           ],
+          "caseFileDocuments": [
+            {
+              "title": "Letter to prosecution",
+              "fileName": "Letter To Prosecution.pdf"
+            },
+            {
+              "title": "Test",
+              "fileName": "Text.txt"
+            }
+          ],
           "cfelEntries": [
             {
               "entryText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -109,6 +119,12 @@
               "hearingDate": "2024-01-10T10:00:00",
               "appearanceType": "Hearing",
               "notes": "If not resolved on next occasion, set for PTC"
+            }
+          ],
+          "caseFileDocuments": [
+            {
+              "title": "Typical Negotiations",
+              "fileName": "Typical Negotiations.pdf"
             }
           ],
           "cfelEntries": [
