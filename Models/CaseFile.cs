@@ -9,6 +9,7 @@ public class CaseFile {
     public List<Charge> Charges { get; set; } = [];
     public List<CaseFileDocument> CaseFileDocuments { get; set; } = [];
     public List<OccurrenceDocument> OccurrenceDocuments { get; set; } = [];
+    public string Notes { get; set; } = string.Empty;
 
     public void GenerateInformationFromCharges() {
         List<InformationEntry> charges = [];
