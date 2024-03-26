@@ -1,6 +1,10 @@
-﻿namespace CourtSystem.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CourtSystem.Models;
 public class CaseFile {
+    [Key]
     public string CaseFileNumber { get; set; } = string.Empty;
+    [MaxLength(20)]
     public string? CourtFileNumber { get; set; } = string.Empty;
     public List<HearingEntry> PreviousHearings { get; set; } = [];
     public List<CaseFileEnquiryLog> CfelEntries { get; set; } = [];
