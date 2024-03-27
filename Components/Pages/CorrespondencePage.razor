@@ -1,8 +1,8 @@
-@using CourtSystem.Helpers
-@using CourtSystem.Models
-@using System.IO
-@using System.Net
-@using System.Net.Http
+@    using CourtSystem.Helpers
+@    using CourtSystem.Models
+@    using System.IO
+@    using System.Net
+@    using System.Net.Http
 
 <div class="flex flex-grow">
     @if (Parent.ActiveDefendant?.ActiveCaseFile?.CaseFileDocuments.Count == 0) {
@@ -24,7 +24,7 @@
 </div>
 
 @code {
-    [CascadingParameter] public Home Parent { get; set; } = default!;
+    [CascadingParameter] public CourtListPage Parent { get; set; } = default!;
     public CaseFileDocument? SelectedDocument { get; set; }
     private string _pdfContent = "";
     private string serverUrl = "https://localhost:7150/correspondence";

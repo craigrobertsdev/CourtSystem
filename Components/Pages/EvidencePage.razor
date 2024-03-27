@@ -1,4 +1,5 @@
-@using CourtSystem.Models
+@    using CourtSystem.Models;
+    using CourtSystem.Models.UI
 <div class="flex">
     @if (Evidence.Count == 0) {
         <p>No evidence on file</p>
@@ -10,13 +11,13 @@
             }
         </div>
         <div>
-            <embed src="@SelectedDocument?.FilePath" />
+            <embed src="@SelectedDocument?.FileName" />
         </div>
     }
 </div>
 
 @code {
-    [CascadingParameter] public Home Parent { get; set; } = default!;
+    [CascadingParameter] public CourtListPage Parent { get; set; } = default!;
     public OccurrenceDocument? SelectedDocument { get; set; }
     public List<OccurrenceDocument> Evidence = [];
 

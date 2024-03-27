@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourtSystem", "CourtSystem.csproj", "{67714D66-AF90-4958-9210-C74311F703A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentServer", "..\DocumentServer\DocumentServer.csproj", "{137E995E-EF58-4168-B2F9-276E48A5C3AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentServer", "..\DocumentServer\DocumentServer.csproj", "{137E995E-EF58-4168-B2F9-276E48A5C3AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

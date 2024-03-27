@@ -24,7 +24,7 @@ namespace CourtSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Information",
+                name: "InformationModel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -50,7 +50,7 @@ namespace CourtSystem.Migrations
                     table.ForeignKey(
                         name: "FK_InformationEntry_Information_InformationId",
                         column: x => x.InformationId,
-                        principalTable: "Information",
+                        principalTable: "InformationModel",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -72,7 +72,7 @@ namespace CourtSystem.Migrations
                     table.ForeignKey(
                         name: "FK_CaseFile_Information_InformationId",
                         column: x => x.InformationId,
-                        principalTable: "Information",
+                        principalTable: "InformationModel",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -98,7 +98,7 @@ namespace CourtSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CaseFileEnquiryLog",
+                name: "CaseFileEnquiryLogModel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -119,7 +119,7 @@ namespace CourtSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Charge",
+                name: "ChargeModel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -142,7 +142,7 @@ namespace CourtSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Defendant",
+                name: "DefendantModel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -169,7 +169,7 @@ namespace CourtSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "HearingEntry",
+                name: "HearingEntryModel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -190,7 +190,7 @@ namespace CourtSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OccurrenceDocument",
+                name: "OccurrenceDocumentModel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -226,39 +226,39 @@ namespace CourtSystem.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_CaseFileEnquiryLog_CaseFileNumber",
-                table: "CaseFileEnquiryLog",
+                table: "CaseFileEnquiryLogModel",
                 column: "CaseFileNumber");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Charge_CaseFileNumber",
-                table: "Charge",
+                table: "ChargeModel",
                 column: "CaseFileNumber");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Defendant_ActiveCaseFileCaseFileNumber",
-                table: "Defendant",
+                table: "DefendantModel",
                 column: "ActiveCaseFileCaseFileNumber");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Defendant_CourtListId",
-                table: "Defendant",
+                table: "DefendantModel",
                 column: "CourtListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HearingEntry_CaseFileNumber",
-                table: "HearingEntry",
+                table: "HearingEntryModel",
                 column: "CaseFileNumber");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OccurrenceDocument_CaseFileNumber",
-                table: "OccurrenceDocument",
+                table: "OccurrenceDocumentModel",
                 column: "CaseFileNumber");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_CaseFile_Defendant_DefendantId",
                 table: "CaseFile",
                 column: "DefendantId",
-                principalTable: "Defendant",
+                principalTable: "DefendantModel",
                 principalColumn: "Id");
         }
 
@@ -273,22 +273,22 @@ namespace CourtSystem.Migrations
                 name: "CaseFileDocument");
 
             migrationBuilder.DropTable(
-                name: "CaseFileEnquiryLog");
+                name: "CaseFileEnquiryLogModel");
 
             migrationBuilder.DropTable(
-                name: "Charge");
+                name: "ChargeModel");
 
             migrationBuilder.DropTable(
-                name: "HearingEntry");
+                name: "HearingEntryModel");
 
             migrationBuilder.DropTable(
                 name: "InformationEntry");
 
             migrationBuilder.DropTable(
-                name: "OccurrenceDocument");
+                name: "OccurrenceDocumentModel");
 
             migrationBuilder.DropTable(
-                name: "Defendant");
+                name: "DefendantModel");
 
             migrationBuilder.DropTable(
                 name: "CaseFile");
@@ -297,7 +297,7 @@ namespace CourtSystem.Migrations
                 name: "CourtLists");
 
             migrationBuilder.DropTable(
-                name: "Information");
+                name: "InformationModel");
         }
     }
 }

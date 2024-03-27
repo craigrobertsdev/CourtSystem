@@ -1,4 +1,5 @@
-@using CourtSystem.Models
+@    using CourtSystem.Models;
+    using CourtSystem.Models.UI
 <div class="pb-4">
     @* Create task section *@
     <div>
@@ -11,7 +12,7 @@
                 <RadzenCheckBoxList Data="CaseFiles" @bind-Value=@SelectedCaseFiles TextProperty="CaseFileNumber"
                 ValueProperty="CaseFileNumber" Orientation="Orientation.Vertical"/>
 
-                <button>Create follow up task</button>
+                <RadzenButton Text="Create follow up task"/>
             </div>
         </div>
     </div>
@@ -23,7 +24,7 @@
 </div>
 
 @code {
-    [CascadingParameter] public Home Parent { get; set; } = default!;
+    [CascadingParameter] public CourtListPage Parent { get; set; } = default!;
     public string? RemarksText { get; set; }
     public string? CfelText { get; set; }
     public IEnumerable<string> SelectedCaseFiles { get; set; } = [];
