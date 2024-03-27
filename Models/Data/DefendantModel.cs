@@ -1,9 +1,10 @@
-﻿namespace CourtSystem.Models;
-public class Defendant {
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CourtSystem.Models.Data;
+public class DefendantModel {
+    [Key]
     public int Id { get; set; }
-    public int ListNumber { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public List<CaseFile> CaseFiles { get; set; } = [];
     public CaseFile? ActiveCaseFile { get; set; }
 }

@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CourtSystem.Models;
+namespace CourtSystem.Models.UI;
 public class CaseFile {
-    [Key]
     public string CaseFileNumber { get; set; } = string.Empty;
-    [MaxLength(20)]
+    public Defendant Defendant { get; set; } = default!;
     public string? CourtFileNumber { get; set; } = string.Empty;
     public List<HearingEntry> PreviousHearings { get; set; } = [];
     public List<CaseFileEnquiryLog> CfelEntries { get; set; } = [];

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CourtSystem.Models;
-public class HearingEntry {
+namespace CourtSystem.Models.Data;
+public class HearingEntryModel {
     [Key]
     public int Id { get; set; }
     public DateTime HearingDate { get; set; }
