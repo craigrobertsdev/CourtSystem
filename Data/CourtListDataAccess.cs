@@ -1,4 +1,4 @@
-﻿using CourtSystem.Models;
+﻿using CourtSystem.Models.Data;
 
 namespace CourtSystem.Data;
 public class CourtListDataAccess {
@@ -8,12 +8,12 @@ public class CourtListDataAccess {
         _context = new ApplicationDbContext();
     }
 
-    public void SaveCourtList(CourtList courtList) {
+    public void SaveCourtList(CourtListModel courtList) {
         _context.CourtLists.Add(courtList);
         _context.SaveChanges();
     }
 
-    public CourtList? GetCourtList() {
+    public CourtListModel? GetCourtList() {
         return _context.CourtLists.FirstOrDefault();
     }
 }

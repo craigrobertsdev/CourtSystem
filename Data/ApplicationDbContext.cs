@@ -1,10 +1,10 @@
-﻿using CourtSystem.Models;
+﻿using CourtSystem.Models.Data;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 
 namespace CourtSystem.Data;
 public class ApplicationDbContext : DbContext {
-    public DbSet<CourtList> CourtLists { get; set; }
+    public DbSet<CourtListModel> CourtLists { get; set; }
     public string DbPath { get; set; }
     public ApplicationDbContext() {
         var folder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);

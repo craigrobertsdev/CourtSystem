@@ -1,4 +1,4 @@
-﻿using CourtSystem.Models;
+﻿using CourtSystem.Models.Data;
 using System.IO;
 using System.Text.Json;
 
@@ -9,11 +9,11 @@ public static class CourtListParser {
         PropertyNameCaseInsensitive = true
     };
 
-    public static CourtList? ReadCaseFiles(string path) {
+    public static CourtListModel? ReadCaseFiles(string path) {
         var filePath = Path.Combine(Environment.CurrentDirectory, "Data", "SeedData.json");
         using var reader = new StreamReader(filePath);
         var json = reader.ReadToEnd();
-        var courtList = JsonSerializer.Deserialize<CourtList>(json, options);
+        var courtList = JsonSerializer.Deserialize<CourtListModel>(json, options);
         return courtList;
     }
 }
