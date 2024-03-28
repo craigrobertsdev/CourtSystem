@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CourtSystem.Models.UI;
+using System.ComponentModel.DataAnnotations;
 
 namespace CourtSystem.Models.Data;
 public class DefendantModel {
@@ -6,5 +7,13 @@ public class DefendantModel {
     public int Id { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
-    public CaseFile? ActiveCaseFile { get; set; }
+
+    public Defendant ToUIModel() {
+        return new Defendant {
+            Id = Id,
+            FirstName = FirstName,
+            LastName = LastName,
+            CaseFiles = []
+        };
+    }
 }

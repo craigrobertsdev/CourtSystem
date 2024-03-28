@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CourtSystem.Models.UI;
+using System.ComponentModel.DataAnnotations;
 
 namespace CourtSystem.Models.Data;
 public class ChargeModel {
@@ -9,4 +10,14 @@ public class ChargeModel {
     public DateTime Date { get; set; }
     public string? VictimName { get; set; } = string.Empty;
     public string ChargeWording { get; set; } = string.Empty;
+
+    public Charge ToUIModel() {
+        return new Charge {
+            Sequence = Sequence,
+            Name = Name,
+            Date = Date,
+            VictimName = VictimName,
+            ChargeWording = ChargeWording
+        };
+    }
 }

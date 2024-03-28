@@ -1,6 +1,6 @@
 ﻿using CourtSystem.Data;
 using CourtSystem.Helpers;
-using CourtSystem.Models;
+using CourtSystem.Models.Data;
 using CourtSystem.Models.UI;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -38,20 +38,15 @@ public partial class Home {
             return;
         }
 
-        var caseFiles = await response.Content.ReadFromJsonAsync<List<CaseFile>>();
+        var caseFiles = await response.Content.ReadFromJsonAsync<List<CaseFileModel>>();
         if (caseFiles is null) {
             _error = "Failed to fetch court list.";
             return;
         }
 
-        var defendants = caseFiles.Select(e => e.Defendant).Distinct().ToList();
-        foreach (var defendant in defendants) {
-            defendant.CaseFiles = caseFiles.Where(e => e.Defendant.Id == defendant.Id).ToList();
-        }
-
-        var courtList = new CourtList {
+        var courtList = new CourtListModel {
             Date = DateTime.Now,
-            Defendants = defendants
+            CaseFiles = caseFiles
         };
 
         var dbContext = new ApplicationDbContext();

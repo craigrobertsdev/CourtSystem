@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CourtSystem.Models.UI;
+using System.ComponentModel.DataAnnotations;
 
 namespace CourtSystem.Models.Data;
 public class CaseFileEnquiryLogModel {
@@ -8,4 +9,13 @@ public class CaseFileEnquiryLogModel {
     public string EnteredBy { get; set; } = string.Empty;
 
     public DateTime EntryDate { get; set; }
+
+    public CaseFileEnquiryLog ToUIModel() {
+        return new CaseFileEnquiryLog {
+            Id = Id,
+            EntryText = EntryText,
+            EnteredBy = EnteredBy,
+            EntryDate = EntryDate
+        };
+    }
 }

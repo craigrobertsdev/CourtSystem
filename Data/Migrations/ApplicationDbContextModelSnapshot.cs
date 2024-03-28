@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CourtSystem.Migrations
+namespace CourtSystem.Data
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -17,45 +17,13 @@ namespace CourtSystem.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
 
-            modelBuilder.Entity("CourtSystem.Models.CaseFile", b =>
-                {
-                    b.Property<string>("CaseFileNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CourtFileNumber")
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("DefendantId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("FactsOfCharge")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("InformationId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("CaseFileNumber");
-
-                    b.HasIndex("DefendantId");
-
-                    b.HasIndex("InformationId");
-
-                    b.ToTable("CaseFile");
-                });
-
-            modelBuilder.Entity("CourtSystem.Models.CaseFileDocument", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.CaseFileDocumentModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CaseFileNumber")
+                    b.Property<string>("CaseFileModelCaseFileNumber")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FileName")
@@ -68,18 +36,18 @@ namespace CourtSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CaseFileNumber");
+                    b.HasIndex("CaseFileModelCaseFileNumber");
 
-                    b.ToTable("CaseFileDocument");
+                    b.ToTable("CaseFileDocumentModel");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.CaseFileEnquiryLogModel", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.CaseFileEnquiryLogModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CaseFileNumber")
+                    b.Property<string>("CaseFileModelCaseFileNumber")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EnteredBy")
@@ -95,18 +63,55 @@ namespace CourtSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CaseFileNumber");
+                    b.HasIndex("CaseFileModelCaseFileNumber");
 
                     b.ToTable("CaseFileEnquiryLogModel");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.ChargeModel", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.CaseFileModel", b =>
+                {
+                    b.Property<string>("CaseFileNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourtFileNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CourtListModelId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DefendantId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FactsOfCharge")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("InformationId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CaseFileNumber");
+
+                    b.HasIndex("CourtListModelId");
+
+                    b.HasIndex("DefendantId");
+
+                    b.HasIndex("InformationId");
+
+                    b.ToTable("CaseFileModel");
+                });
+
+            modelBuilder.Entity("CourtSystem.Models.Data.ChargeModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CaseFileNumber")
+                    b.Property<string>("CaseFileModelCaseFileNumber")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ChargeWording")
@@ -128,12 +133,12 @@ namespace CourtSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CaseFileNumber");
+                    b.HasIndex("CaseFileModelCaseFileNumber");
 
                     b.ToTable("ChargeModel");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.CourtListModel", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.CourtListModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -147,13 +152,10 @@ namespace CourtSystem.Migrations
                     b.ToTable("CourtLists");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.DefendantModel", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.DefendantModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("CourtListId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
@@ -164,17 +166,12 @@ namespace CourtSystem.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ListNumber")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CourtListId");
 
                     b.ToTable("DefendantModel");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.HearingEntryModel", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.HearingEntryModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -184,7 +181,7 @@ namespace CourtSystem.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CaseFileNumber")
+                    b.Property<string>("CaseFileModelCaseFileNumber")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("HearingDate")
@@ -196,12 +193,12 @@ namespace CourtSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CaseFileNumber");
+                    b.HasIndex("CaseFileModelCaseFileNumber");
 
                     b.ToTable("HearingEntryModel");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.InformationModel", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.InformationModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -212,13 +209,13 @@ namespace CourtSystem.Migrations
                     b.ToTable("InformationModel");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.OccurrenceDocumentModel", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.OccurrenceDocumentModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CaseFileNumber")
+                    b.Property<string>("CaseFileModelCaseFileNumber")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FileName")
@@ -231,70 +228,65 @@ namespace CourtSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CaseFileNumber");
+                    b.HasIndex("CaseFileModelCaseFileNumber");
 
                     b.ToTable("OccurrenceDocumentModel");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.CaseFile", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.CaseFileDocumentModel", b =>
                 {
-                    b.HasOne("CourtSystem.Models.DefendantModel", "DefendantModel")
+                    b.HasOne("CourtSystem.Models.Data.CaseFileModel", null)
+                        .WithMany("CaseFileDocuments")
+                        .HasForeignKey("CaseFileModelCaseFileNumber");
+                });
+
+            modelBuilder.Entity("CourtSystem.Models.Data.CaseFileEnquiryLogModel", b =>
+                {
+                    b.HasOne("CourtSystem.Models.Data.CaseFileModel", null)
+                        .WithMany("CfelEntries")
+                        .HasForeignKey("CaseFileModelCaseFileNumber");
+                });
+
+            modelBuilder.Entity("CourtSystem.Models.Data.CaseFileModel", b =>
+                {
+                    b.HasOne("CourtSystem.Models.Data.CourtListModel", null)
                         .WithMany("CaseFiles")
+                        .HasForeignKey("CourtListModelId");
+
+                    b.HasOne("CourtSystem.Models.Data.DefendantModel", "Defendant")
+                        .WithMany()
                         .HasForeignKey("DefendantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CourtSystem.Models.InformationModel", "InformationModel")
+                    b.HasOne("CourtSystem.Models.Data.InformationModel", "Information")
                         .WithMany()
-                        .HasForeignKey("InformationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("InformationId");
 
-                    b.Navigation("DefendantModel");
+                    b.Navigation("Defendant");
 
-                    b.Navigation("InformationModel");
+                    b.Navigation("Information");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.CaseFileDocument", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.ChargeModel", b =>
                 {
-                    b.HasOne("CourtSystem.Models.CaseFile", null)
-                        .WithMany("CaseFileDocuments")
-                        .HasForeignKey("CaseFileNumber");
-                });
-
-            modelBuilder.Entity("CourtSystem.Models.CaseFileEnquiryLogModel", b =>
-                {
-                    b.HasOne("CourtSystem.Models.CaseFile", null)
-                        .WithMany("CfelEntries")
-                        .HasForeignKey("CaseFileNumber");
-                });
-
-            modelBuilder.Entity("CourtSystem.Models.ChargeModel", b =>
-                {
-                    b.HasOne("CourtSystem.Models.CaseFile", null)
+                    b.HasOne("CourtSystem.Models.Data.CaseFileModel", null)
                         .WithMany("Charges")
-                        .HasForeignKey("CaseFileNumber");
+                        .HasForeignKey("CaseFileModelCaseFileNumber");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.DefendantModel", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.HearingEntryModel", b =>
                 {
-                    b.HasOne("CourtSystem.Models.CourtListModel", null)
-                        .WithMany("Defendants")
-                        .HasForeignKey("CourtListId");
-                });
-
-            modelBuilder.Entity("CourtSystem.Models.HearingEntryModel", b =>
-                {
-                    b.HasOne("CourtSystem.Models.CaseFile", null)
+                    b.HasOne("CourtSystem.Models.Data.CaseFileModel", null)
                         .WithMany("PreviousHearings")
-                        .HasForeignKey("CaseFileNumber");
+                        .HasForeignKey("CaseFileModelCaseFileNumber");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.InformationModel", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.InformationModel", b =>
                 {
-                    b.OwnsMany("CourtSystem.Models.InformationEntry", "Charges", b1 =>
+                    b.OwnsMany("CourtSystem.Models.Data.InformationEntryModel", "Charges", b1 =>
                         {
-                            b1.Property<int>("InformationId")
+                            b1.Property<int>("InformationModelId")
                                 .HasColumnType("INTEGER");
 
                             b1.Property<int>("Id")
@@ -308,25 +300,25 @@ namespace CourtSystem.Migrations
                                 .IsRequired()
                                 .HasColumnType("TEXT");
 
-                            b1.HasKey("InformationId", "Id");
+                            b1.HasKey("InformationModelId", "Id");
 
-                            b1.ToTable("InformationEntry");
+                            b1.ToTable("InformationEntryModel");
 
                             b1.WithOwner()
-                                .HasForeignKey("InformationId");
+                                .HasForeignKey("InformationModelId");
                         });
 
                     b.Navigation("Charges");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.OccurrenceDocumentModel", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.OccurrenceDocumentModel", b =>
                 {
-                    b.HasOne("CourtSystem.Models.CaseFile", null)
+                    b.HasOne("CourtSystem.Models.Data.CaseFileModel", null)
                         .WithMany("OccurrenceDocuments")
-                        .HasForeignKey("CaseFileNumber");
+                        .HasForeignKey("CaseFileModelCaseFileNumber");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.CaseFile", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.CaseFileModel", b =>
                 {
                     b.Navigation("CaseFileDocuments");
 
@@ -339,12 +331,7 @@ namespace CourtSystem.Migrations
                     b.Navigation("PreviousHearings");
                 });
 
-            modelBuilder.Entity("CourtSystem.Models.CourtListModel", b =>
-                {
-                    b.Navigation("Defendants");
-                });
-
-            modelBuilder.Entity("CourtSystem.Models.DefendantModel", b =>
+            modelBuilder.Entity("CourtSystem.Models.Data.CourtListModel", b =>
                 {
                     b.Navigation("CaseFiles");
                 });

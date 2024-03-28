@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CourtSystem.Migrations
+namespace CourtSystem.Data
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class CreatedSpecificDbModels : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,11 +16,26 @@ namespace CourtSystem.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CourtLists", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DefendantModel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DefendantModel", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,68 +47,80 @@ namespace CourtSystem.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Information", x => x.Id);
+                    table.PrimaryKey("PK_InformationModel", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "InformationEntry",
+                name: "CaseFileModel",
                 columns: table => new
                 {
+                    CaseFileNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    DefendantId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CourtFileNumber = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
+                    FactsOfCharge = table.Column<string>(type: "TEXT", nullable: false),
                     InformationId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Notes = table.Column<string>(type: "TEXT", nullable: false),
+                    CourtListModelId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CaseFileModel", x => x.CaseFileNumber);
+                    table.ForeignKey(
+                        name: "FK_CaseFileModel_CourtLists_CourtListModelId",
+                        column: x => x.CourtListModelId,
+                        principalTable: "CourtLists",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CaseFileModel_DefendantModel_DefendantId",
+                        column: x => x.DefendantId,
+                        principalTable: "DefendantModel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CaseFileModel_InformationModel_InformationId",
+                        column: x => x.InformationId,
+                        principalTable: "InformationModel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InformationEntryModel",
+                columns: table => new
+                {
+                    InformationModelId = table.Column<int>(type: "INTEGER", nullable: false),
                     Id = table.Column<int>(type: "INTEGER", nullable: false),
                     Sequence = table.Column<int>(type: "INTEGER", nullable: false),
                     Text = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InformationEntry", x => new { x.InformationId, x.Id });
+                    table.PrimaryKey("PK_InformationEntryModel", x => new { x.InformationModelId, x.Id });
                     table.ForeignKey(
-                        name: "FK_InformationEntry_Information_InformationId",
-                        column: x => x.InformationId,
+                        name: "FK_InformationEntryModel_InformationModel_InformationModelId",
+                        column: x => x.InformationModelId,
                         principalTable: "InformationModel",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CaseFile",
-                columns: table => new
-                {
-                    CaseFileNumber = table.Column<string>(type: "TEXT", nullable: false),
-                    CourtFileNumber = table.Column<string>(type: "TEXT", maxLength: 20, nullable: true),
-                    FactsOfCharge = table.Column<string>(type: "TEXT", nullable: false),
-                    InformationId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Notes = table.Column<string>(type: "TEXT", nullable: false),
-                    DefendantId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CaseFile", x => x.CaseFileNumber);
-                    table.ForeignKey(
-                        name: "FK_CaseFile_Information_InformationId",
-                        column: x => x.InformationId,
-                        principalTable: "InformationModel",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CaseFileDocument",
+                name: "CaseFileDocumentModel",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     FileName = table.Column<string>(type: "TEXT", nullable: false),
-                    CaseFileNumber = table.Column<string>(type: "TEXT", nullable: true)
+                    CaseFileModelCaseFileNumber = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CaseFileDocument", x => x.Id);
+                    table.PrimaryKey("PK_CaseFileDocumentModel", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CaseFileDocument_CaseFile_CaseFileNumber",
-                        column: x => x.CaseFileNumber,
-                        principalTable: "CaseFile",
+                        name: "FK_CaseFileDocumentModel_CaseFileModel_CaseFileModelCaseFileNumber",
+                        column: x => x.CaseFileModelCaseFileNumber,
+                        principalTable: "CaseFileModel",
                         principalColumn: "CaseFileNumber");
                 });
 
@@ -106,15 +133,15 @@ namespace CourtSystem.Migrations
                     EntryText = table.Column<string>(type: "TEXT", nullable: false),
                     EnteredBy = table.Column<string>(type: "TEXT", nullable: false),
                     EntryDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CaseFileNumber = table.Column<string>(type: "TEXT", nullable: true)
+                    CaseFileModelCaseFileNumber = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CaseFileEnquiryLog", x => x.Id);
+                    table.PrimaryKey("PK_CaseFileEnquiryLogModel", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CaseFileEnquiryLog_CaseFile_CaseFileNumber",
-                        column: x => x.CaseFileNumber,
-                        principalTable: "CaseFile",
+                        name: "FK_CaseFileEnquiryLogModel_CaseFileModel_CaseFileModelCaseFileNumber",
+                        column: x => x.CaseFileModelCaseFileNumber,
+                        principalTable: "CaseFileModel",
                         principalColumn: "CaseFileNumber");
                 });
 
@@ -129,43 +156,16 @@ namespace CourtSystem.Migrations
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     VictimName = table.Column<string>(type: "TEXT", nullable: true),
                     ChargeWording = table.Column<string>(type: "TEXT", nullable: false),
-                    CaseFileNumber = table.Column<string>(type: "TEXT", nullable: true)
+                    CaseFileModelCaseFileNumber = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Charge", x => x.Id);
+                    table.PrimaryKey("PK_ChargeModel", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Charge_CaseFile_CaseFileNumber",
-                        column: x => x.CaseFileNumber,
-                        principalTable: "CaseFile",
+                        name: "FK_ChargeModel_CaseFileModel_CaseFileModelCaseFileNumber",
+                        column: x => x.CaseFileModelCaseFileNumber,
+                        principalTable: "CaseFileModel",
                         principalColumn: "CaseFileNumber");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DefendantModel",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ListNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    ActiveCaseFileCaseFileNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    CourtListId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Defendant", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Defendant_CaseFile_ActiveCaseFileCaseFileNumber",
-                        column: x => x.ActiveCaseFileCaseFileNumber,
-                        principalTable: "CaseFile",
-                        principalColumn: "CaseFileNumber");
-                    table.ForeignKey(
-                        name: "FK_Defendant_CourtLists_CourtListId",
-                        column: x => x.CourtListId,
-                        principalTable: "CourtLists",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -177,15 +177,15 @@ namespace CourtSystem.Migrations
                     HearingDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     AppearanceType = table.Column<string>(type: "TEXT", nullable: false),
                     Notes = table.Column<string>(type: "TEXT", nullable: false),
-                    CaseFileNumber = table.Column<string>(type: "TEXT", nullable: true)
+                    CaseFileModelCaseFileNumber = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HearingEntry", x => x.Id);
+                    table.PrimaryKey("PK_HearingEntryModel", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_HearingEntry_CaseFile_CaseFileNumber",
-                        column: x => x.CaseFileNumber,
-                        principalTable: "CaseFile",
+                        name: "FK_HearingEntryModel_CaseFileModel_CaseFileModelCaseFileNumber",
+                        column: x => x.CaseFileModelCaseFileNumber,
+                        principalTable: "CaseFileModel",
                         principalColumn: "CaseFileNumber");
                 });
 
@@ -196,81 +196,65 @@ namespace CourtSystem.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
-                    FilePath = table.Column<string>(type: "TEXT", nullable: false),
-                    CaseFileNumber = table.Column<string>(type: "TEXT", nullable: true)
+                    FileName = table.Column<string>(type: "TEXT", nullable: false),
+                    CaseFileModelCaseFileNumber = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OccurrenceDocument", x => x.Id);
+                    table.PrimaryKey("PK_OccurrenceDocumentModel", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OccurrenceDocument_CaseFile_CaseFileNumber",
-                        column: x => x.CaseFileNumber,
-                        principalTable: "CaseFile",
+                        name: "FK_OccurrenceDocumentModel_CaseFileModel_CaseFileModelCaseFileNumber",
+                        column: x => x.CaseFileModelCaseFileNumber,
+                        principalTable: "CaseFileModel",
                         principalColumn: "CaseFileNumber");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CaseFile_DefendantId",
-                table: "CaseFile",
+                name: "IX_CaseFileDocumentModel_CaseFileModelCaseFileNumber",
+                table: "CaseFileDocumentModel",
+                column: "CaseFileModelCaseFileNumber");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CaseFileEnquiryLogModel_CaseFileModelCaseFileNumber",
+                table: "CaseFileEnquiryLogModel",
+                column: "CaseFileModelCaseFileNumber");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CaseFileModel_CourtListModelId",
+                table: "CaseFileModel",
+                column: "CourtListModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CaseFileModel_DefendantId",
+                table: "CaseFileModel",
                 column: "DefendantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CaseFile_InformationId",
-                table: "CaseFile",
+                name: "IX_CaseFileModel_InformationId",
+                table: "CaseFileModel",
                 column: "InformationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CaseFileDocument_CaseFileNumber",
-                table: "CaseFileDocument",
-                column: "CaseFileNumber");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CaseFileEnquiryLog_CaseFileNumber",
-                table: "CaseFileEnquiryLogModel",
-                column: "CaseFileNumber");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Charge_CaseFileNumber",
+                name: "IX_ChargeModel_CaseFileModelCaseFileNumber",
                 table: "ChargeModel",
-                column: "CaseFileNumber");
+                column: "CaseFileModelCaseFileNumber");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Defendant_ActiveCaseFileCaseFileNumber",
-                table: "DefendantModel",
-                column: "ActiveCaseFileCaseFileNumber");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Defendant_CourtListId",
-                table: "DefendantModel",
-                column: "CourtListId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_HearingEntry_CaseFileNumber",
+                name: "IX_HearingEntryModel_CaseFileModelCaseFileNumber",
                 table: "HearingEntryModel",
-                column: "CaseFileNumber");
+                column: "CaseFileModelCaseFileNumber");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OccurrenceDocument_CaseFileNumber",
+                name: "IX_OccurrenceDocumentModel_CaseFileModelCaseFileNumber",
                 table: "OccurrenceDocumentModel",
-                column: "CaseFileNumber");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_CaseFile_Defendant_DefendantId",
-                table: "CaseFile",
-                column: "DefendantId",
-                principalTable: "DefendantModel",
-                principalColumn: "Id");
+                column: "CaseFileModelCaseFileNumber");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_CaseFile_Defendant_DefendantId",
-                table: "CaseFile");
-
             migrationBuilder.DropTable(
-                name: "CaseFileDocument");
+                name: "CaseFileDocumentModel");
 
             migrationBuilder.DropTable(
                 name: "CaseFileEnquiryLogModel");
@@ -282,19 +266,19 @@ namespace CourtSystem.Migrations
                 name: "HearingEntryModel");
 
             migrationBuilder.DropTable(
-                name: "InformationEntry");
+                name: "InformationEntryModel");
 
             migrationBuilder.DropTable(
                 name: "OccurrenceDocumentModel");
 
             migrationBuilder.DropTable(
-                name: "DefendantModel");
-
-            migrationBuilder.DropTable(
-                name: "CaseFile");
+                name: "CaseFileModel");
 
             migrationBuilder.DropTable(
                 name: "CourtLists");
+
+            migrationBuilder.DropTable(
+                name: "DefendantModel");
 
             migrationBuilder.DropTable(
                 name: "InformationModel");

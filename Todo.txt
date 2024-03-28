@@ -5,3 +5,16 @@ Add the court file number if possible.
 
 Fix the way that the correspondence page works so that when the ActiveDefendant changes, the first email for them is displayed,
 rather than whatever was being displayed last.
+
+
+Data flows from the server as a list of casefiles with defendants attached.
+
+The court list have a list of defendants, each with a list of case files associated with them as well as an active case file
+
+A transformation from the server models to the UI models will be:
+For each case file, identify the defendant and add the case file to the defendant's list of case files.
+Add that defendant to a hash table of defendants, keyed by defendant id.
+add the defendant list to the court list.
+profit.
+
+
